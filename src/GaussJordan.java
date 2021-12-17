@@ -167,6 +167,7 @@ public class GaussJordan {
                     zeile3[i] = zeile3[i] / wert3;
                 }
                 ausgeben();
+                loesungsMengeAusgeben();
                 break;
         }
     }
@@ -215,7 +216,8 @@ public class GaussJordan {
         return 0.0;
     }
     public static void loesungsMengeAusgeben(){
-
+            System.out.println("");
+            System.out.println("Die Lösungsmenge betraegt L = {x = " + zeile1[3] + " | y = " + zeile2[3] +  " | z = " + zeile3[3] + "}");
     }
     public static boolean pruefen(){
         if((zeile3[0] == 0) && (zeile3[1] == 0) && (zeile3[2]== 1) &&
