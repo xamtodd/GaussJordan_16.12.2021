@@ -35,6 +35,14 @@ public class GaussJordan {
         int stufe = 1;
         ausgeben();
         while (true){
+            if(loesungPruefen() == 1){
+                System.out.println("Das LGS hat unendlich viele Lösungen!");
+                break;
+            }
+            if(loesungPruefen() == 2){
+                System.out.println("Das LGS hat keine Lösungen! L = { }");
+                break;
+            }
             if(pruefen()){
                 break;
             }
@@ -219,6 +227,19 @@ public class GaussJordan {
             System.out.println("");
             System.out.println("Die Lösungsmenge betraegt L = {x = " + zeile1[3] + " | y = " + zeile2[3] +  " | z = " + zeile3[3] + "}");
     }
+    public static int loesungPruefen(){
+        if((zeile3[0] == 0) && (zeile3[1] == 0) && (zeile3[2]== 0) && (zeile3[3]==0) ||
+                (zeile2[0] == 0) && (zeile2[1] == 0) &&(zeile2[2]== 0) && (zeile2[3]==0)||
+                (zeile1[0] == 0) && (zeile1[1] == 0) && (zeile1[2] == 0) && (zeile1[3]==0)){
+            return 1;
+        }
+        if((zeile3[0] == 0) && (zeile3[1] == 0) && (zeile3[2]== 0) && (zeile3[3]!=0) ||
+                (zeile2[0] == 0) && (zeile2[1] == 0) &&(zeile2[2]== 0) && (zeile2[3]!=0)||
+                (zeile1[0] == 0) && (zeile1[1] == 0) && (zeile1[2] == 0) && (zeile1[3]!=0)){
+            return 2;
+        }
+        return 0;
+    }
     public static boolean pruefen(){
         if((zeile3[0] == 0) && (zeile3[1] == 0) && (zeile3[2]== 1) &&
                 (zeile2[0] == 0) && (zeile2[1] == 1) &&(zeile2[2]== 0) &&
@@ -227,9 +248,6 @@ public class GaussJordan {
         }else {
             return false;
         }
-    }
-    public static void unedlich(){
-        System.out.println("Dieses LGS besitzt unendlich viele Lösungen!");
     }
     public static void ausgeben(){
         inKonsole(zeile1);
