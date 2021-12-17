@@ -1,3 +1,5 @@
+import com.sun.source.tree.WhileLoopTree;
+
 import java.util.Scanner;
 
 public class GaussJordan {
@@ -33,33 +35,141 @@ public class GaussJordan {
     }
     public static void loesen(){
         int stufe = 1;
-        int lauf = 0;
+        ausgeben();
         while (true){
-            ausgeben();
             if(pruefen()){
                 break;
             }
             stufeloesen(stufe);
-            lauf++;
-            if(lauf == 2){
-                break;
+            stufe++;
+        }
+    }
+    public static void zeilenaddieren(int stufe){
+        if(stufe == 1){
+            for (int i = 0; i <= 4 - 1; i++){
+                zeile3[i] = zeile3[i] + zeile2[i];
+            }
+        }
+        if(stufe == 2){
+            for (int i = 0; i <= 4 - 1; i++){
+                zeile2[i] = zeile2[i] + zeile1[i];
+            }
+        }
+        if(stufe == 3){
+            for (int i = 0; i <= 4 - 1; i++){
+                zeile3[i] = zeile3[i] + zeile2[i];
+            }
+        }
+        if(stufe == 4){
+            for (int i = 0; i <= 4 - 1; i++){
+                zeile2[i] = zeile2[i] + zeile3[i];
+            }
+        }
+        if(stufe == 5){
+            for (int i = 0; i <= 4 - 1; i++){
+                zeile1[i] = zeile1[i] + zeile3[i];
+            }
+        }
+        if(stufe == 6){
+            for (int i = 0; i <= 4 - 1; i++){
+                zeile1[i] = zeile1[i] + zeile2[i];
             }
         }
     }
-    public static void zeilenaddieren(){
-
-    }
     public static void stufeloesen(int stufe){
+        double wert;
+        double wert2;
+        double wert3;
         switch (stufe){
             case 1:
-                double wert = getWert(3,1);
-                double wert2 = getWert(2,1);
+                wert = getWert(3,1);
+                wert2 = getWert(2,1);
                 if(wert != 0){
                     for (int i = 0; i <= 4 - 1; i++){
                         zeile3[i] = zeile3[i] * wert2;
                         zeile2[i] = zeile2[i] * (-wert);
                     }
+                    ausgeben();
+                    zeilenaddieren(1);
+                    ausgeben();
                 }
+                break;
+            case 2:
+                wert = getWert(1,1);
+                wert2 = getWert(2,1);
+                if(wert != 0){
+                    for (int i = 0; i <= 4 - 1; i++){
+                        zeile1[i] = zeile1[i] * wert2;
+                        zeile2[i] = zeile2[i] * (-wert);
+                    }
+                    ausgeben();
+                    zeilenaddieren(2);
+                    ausgeben();
+                }
+                break;
+            case 3:
+                wert = getWert(2,2);
+                wert2 = getWert(3,2);
+                if(wert != 0){
+                    for (int i = 0; i <= 4 - 1; i++){
+                        zeile2[i] = zeile2[i] * wert2;
+                        zeile3[i] = zeile3[i] * (-wert);
+                    }
+                    ausgeben();
+                    zeilenaddieren(3);
+                    ausgeben();
+                }
+                break;
+            case 4:
+                wert = getWert(3,3);
+                wert2 = getWert(2,3);
+                if(wert != 0){
+                    for (int i = 0; i <= 4 - 1; i++){
+                        zeile2[i] = zeile2[i] * wert;
+                        zeile3[i] = zeile3[i] * (-wert2);
+                    }
+                    ausgeben();
+                    zeilenaddieren(4);
+                    ausgeben();
+                }
+                break;
+            case 5:
+                wert = getWert(3,3);
+                wert2 = getWert(1,3);
+                if(wert != 0){
+                    for (int i = 0; i <= 4 - 1; i++){
+                        zeile1[i] = zeile1[i] * wert;
+                        zeile3[i] = zeile3[i] * (- wert2);
+                    }
+                    ausgeben();
+                    zeilenaddieren(5);
+                    ausgeben();
+                }
+                break;
+            case 6:
+                wert = getWert(1,2);
+                wert2 = getWert(2,2);
+                if(wert != 0) {
+                    for (int i = 0; i <= 4 - 1; i++) {
+                        zeile2[i] = zeile2[i] * wert;
+                        zeile1[i] = zeile1[i] * (-wert2);
+                    }
+                    ausgeben();
+                    zeilenaddieren(6);
+                    ausgeben();
+                }
+                break;
+            case 7:
+                wert = getWert(1,1);
+                wert2 = getWert(2,2);
+                wert3 = getWert(3,3);
+                for(int i = 0; i <= 4 - 1; i++){
+                    zeile1[i] = zeile1[i] / wert;
+                    zeile2[i] = zeile2[i] / wert2;
+                    zeile3[i] = zeile3[i] / wert3;
+                }
+                ausgeben();
+                break;
         }
     }
     public static double getWert(int zeile, int spalte){
@@ -117,6 +227,9 @@ public class GaussJordan {
         }else {
             return false;
         }
+    }
+    public static void unedlich(){
+        System.out.println("Dieses LGS besitzt unendlich viele Lösungen!");
     }
     public static void ausgeben(){
         inKonsole(zeile1);
